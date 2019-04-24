@@ -1,5 +1,5 @@
 {
-  "name": "@terascope/docker-compose-js",
+  "name": "@bahmanm/docker-compose-js",
   "version": "1.0.0",
   "publishConfig": {
     "access": "public"
@@ -32,6 +32,9 @@
     "testing"
   ],
   "author": "Kimbro Staken",
+  "contributors": [
+    "Bahman Movaqar <Bahman@BahmanM.com> (http://BahmanM.com)"
+  ],
   "license": "MIT",
   "dependencies": {
     "bluebird": "^3.4.0",
