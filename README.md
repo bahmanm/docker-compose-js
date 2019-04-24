@@ -7,7 +7,7 @@ A larger example of the API used in this way is available in the [integration te
 ## Installation
 
 ```
-npm install docker-compose-js
+npm install @bahmanm/docker-compose-js
 ```
 
 ## Usage
@@ -21,44 +21,51 @@ The examples below show the common patterns for calls. Since this is a wrapper a
 Note: Each function takes an object for keyword parameters as the last argument.
 
 ```
-var compose = require('docker-compose-js')('docker-compose.yaml');
+const DockerCompose = require('docker-compose-js');
 
-compose.up()
+const fooComposer = DockerCompose('docker-compose.yaml', {
+  '-p', `foo-${genRandomString()}`,
+  '--host', 'foo.thatplace.com'
+});
+
+fooComposer.up()
     .then(function() {
-        return compose.stop('test');
+        return fooComposer.stop('test');
     })
     .then(function() {
-        return compose.kill('test', { s: 'SIGINT' });
+        return fooComposer.kill('test', { s: 'SIGINT' });
     })
     .then(function() {
-        return compose.ps();
+        return fooComposer.ps();
     })
     .then(console.log)
     .catch(function(error) {
         console.log(error);
     })
     .finally(function() {
-        compose.down();
+        fooComposer.down();
     })
 ```
 
 Example of scaling a particular task
 
 ```
-var compose = require('docker-compose-js')('docker-compose.yaml');
+const DockerCompose = require('docker-compose-js');
 
-compose.up()
+const fooComposer = DockerCompose('docker-compose.yaml');
+
+fooComposer.up()
     .then(function(result) {
-        return compose.scale('test=2');
+        return fooComposer.scale('test=2');
     })
     .then(function() {
-        return compose.ps();
+        return fooComposer.ps();
     })
     .then(console.log)
     .catch(function(error) {
         console.log(error);
     })
     .finally(function() {
-        return compose.down();
+        return fooComposer.down();
     })
 ```
