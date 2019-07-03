@@ -30,6 +30,8 @@ module.exports = function compose(composeFile, composeOptions = {}) {
       (function(resolve, reject) {
         let stdout = '';
         let stderr = '';
+        const env = { ...process.env, ...options.envars, shell: true };
+        delete options.envars;
         let args = [
           '-f', composeFile,
           ...objectToOptions(composeOptions),
@@ -47,7 +49,7 @@ module.exports = function compose(composeFile, composeOptions = {}) {
         // Some commands support an additional parameter
         if (param1) args.push(param1);
         debug('docker-compose', args);
-        const cmd = spawn('docker-compose', args);
+        const cmd = spawn('docker-compose', args, { env });
 
         cmd.stdout.on('data', (data) => {
           debug('stdout', data.toString());
